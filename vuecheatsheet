@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue Demo </title>
+
+  <script src="static/js/vue/vue.js"></script>
+
+  
+</head>
+<body>
+  <div id="app1">
+ {{message}}
+ <input v-model="message">
+ 
+ <p v-if="seen"> control hidden </p>
+
+ <ol>
+    <li v-for="todo in listtodos">
+      {{ todo }}
+    </li>
+  </ol>
+  
+  <ol>
+    <li v-for="todo in dicttodos">
+      {{ todo.text }}
+    </li>
+  </ol>
+
+
+  <button v-on:click="reverseMessage">Reverse Message</button>
+
+  </div>
+
+  
+
+  <script>
+   var vm1= new Vue({
+      el: '#app1',
+      data: {
+        message: 'twoway bind message',
+       seen:false,
+       listtodos:["first thing","second thing","third thing"],
+       dicttodos: [
+      { text: 'Learn JavaScript' },
+      { text: 'Learn Vue' },
+      { text: 'Build something awesome' }
+    ]
+      },
+      methods: {
+        reverseMessage: function () {
+      this.message = this.message.split('').reverse().join('')
+    }
+        }
+      }
+    )
+
+   
+  </script>
+</body>
+</html>
