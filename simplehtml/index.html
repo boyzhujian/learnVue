@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Vue</title>
+  <script src="js/vue.min.js"></script>
+  <script src="js/axios.min.js"></script>
+</head>
+<body>
+  <div id="app">
+     
+<p><input v-model="servicename" placeholder="eg:logon thinclient j2ee" >  service name: {{servicename}}</p>
+<p><input v-model="releaseversion" placeholder="version like:2.4.4 "> releaseversion: {{releaseversion}}</p>
+<p><input v-model="buildnum" placeholder="buildnum like 0000">  buildnum: {{buildnum}}</p>
+
+<button v-on:click="getcmcfilelist()" > Check  </button>
+<p v-html="returndata">   </p>
+
+
+  
+
+    
+    <!-- <h1>{{ greeting }}</h1>
+    <ul>
+      <li>
+        To learn more about Vue, visit
+        <a :href="docsURL" target="_blank">
+          {{ humanizeURL(docsURL) }}
+        </a>
+      </li>
+      <li>
+        For live help with simple questions, check out
+        <a :href="gitterURL" target="_blank">
+          the Gitter chat
+        </a>
+      </li>
+      <li>
+        For more complex questions, post to
+        <a :href="forumURL" target="_blank">
+          the forum
+        </a>
+      </li>
+    </ul> -->
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        returndata:"",
+        servicename:"",
+        releaseversion:"",
+        buildnum:"",
+
+        greeting: 'Welcome to your Vue.js app!',
+        docsURL: 'http://vuejs.org/guide/',
+        gitterURL: 'https://gitter.im/vuejs/vue',
+        forumURL: 'http://forum.vuejs.org/'
+      },
+      methods: {
+        getcmcfilelist:function(){
+          axios.get('http://10.254.33.211:8090/cmcapi?component='+this.servicename+'&releaseversion='+this.releaseversion+'&buildnum='+this.buildnum, {
+    params: {
+      ID: 12345
+    }
+  })
+  .then((response) => {
+                this.returndata = response.data.replace(/(?:\r\n|\r|\n)/g, '<br />');
+               //alert(response.data)
+                })
+
+            //    https://stackoverflow.com/questions/40996344/axios-cant-set-data
+  //   function (response) {
+  //   console.log(response);
+  //   alert(response.data)
+  //   returndata=response.data
+  // })
+  // .catch(function (error) {
+  //   console.log(error);
+  // });
+        },
+        humanizeURL: function (url) {
+          return url
+            .replace(/^https?:\/\//, '')
+            .replace(/\/$/, '')
+        }
+      }
+    })
+  </script>
+</body>
+</html>
